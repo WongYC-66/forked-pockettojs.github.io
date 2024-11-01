@@ -2,7 +2,8 @@
 /node_modules
 
 # Production
-# /build  # disable, for CI/CD with gh-workflows
+/build  
+## disable, for CI/CD with gh-workflows
 
 # Generated files
 .docusaurus

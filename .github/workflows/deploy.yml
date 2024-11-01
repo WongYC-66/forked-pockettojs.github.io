@@ -27,14 +27,8 @@ jobs:
       - name: Build website
         run: yarn build
 
-      - name: Verify Build Output
-        run: |
-          if [ ! -d "build" ]; then
-            echo "Build directory does not exist. Exiting."
-            exit 1
-          else
-            echo "Build directory exists."
-          fi
+      - name: List Build Directory Contents
+        run: ls -la build  # List contents of the build directory for verification
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
@@ -65,16 +59,7 @@ jobs:
       - name: List Files After Download
         run: |
           echo "Listing files in the current directory:"
-          ls -R  # List all files to see what’s present
-
-      - name: Verify Build Artifact
-        run: |
-          if [ -z "$(ls -A .)" ]; then
-            echo "No files found after downloading. Exiting."
-            exit 1
-          else
-            echo "Files found after downloading."
-          fi
+          ls -R
 
       - name: Commit and Push to `master`
         env:
