@@ -28,8 +28,9 @@ jobs:
         run: yarn build
 
       - name: Upload Build Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
+          name: docusaurus-build
           path: build
 
   deploy:
@@ -46,7 +47,9 @@ jobs:
           ref: master  # Check out the `master` branch where the site will be deployed
 
       - name: Download Build Artifact
-        uses: actions/download-pages-artifact@v3
+        uses: actions/download-artifact@v3
+        with:
+          name: docusaurus-build  # Use the name given in the upload step
 
       - name: Copy Build Files to Root
         run: |
