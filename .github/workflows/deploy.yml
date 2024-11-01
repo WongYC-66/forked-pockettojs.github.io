@@ -68,17 +68,12 @@ jobs:
 
       - name: Verify Build Artifact
         run: |
-          if [ ! -d "build" ]; then
-            echo "Build directory does not exist after download. Exiting."
+          if [ -z "$(ls -A .)" ]; then
+            echo "No files found after downloading. Exiting."
             exit 1
           else
-            echo "Build directory exists after downloading."
+            echo "Files found after downloading."
           fi
-
-      - name: Copy Build Files to Root
-        run: |
-          rm -rf ./*  # Clear the current contents of the master branch
-          cp -r build/* ./  # Copy the contents of the build folder to root
 
       - name: Commit and Push to `master`
         env:
@@ -86,7 +81,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
+          git add .  # Add all files in the current directory
           git commit -m "Deploy Docusaurus site" || echo "No changes to commit"  # Prevents error if there are no changes
           git push origin master --force
 
