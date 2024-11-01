@@ -1,7 +1,7 @@
 # Run docusaurus deploy at "source" branch, to generate contents of build folder
 # then push them to "master" branch
 # cannot deploy directly from "source" branch, something artifcats missing
-name: Deploy to GitHub Pages
+name: Build & Deploy to Master Branch
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
           path: build
 
   deploy:
-    name: Deploy to GitHub Pages
+    name: Deploy to Master Branch
     needs: build
     permissions:
       contents: write  # Allows pushing to the `master` branch
