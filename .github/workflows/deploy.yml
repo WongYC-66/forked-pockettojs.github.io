@@ -27,24 +27,26 @@ jobs:
       - name: Build website
         run: yarn build
 
-      - name: List Build Directory Contents
-        run: ls -la build  # List contents of the build directory for verification
-
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: docusaurus-build
+          name: docusaurus-build  # This should match the name used in the download step
           path: build
 
   deploy:
     name: Deploy to GitHub Pages
     needs: build
-    runs-on: ubuntu-latest
     permissions:
       contents: write  # Allows pushing to the `master` branch
       pages: write     # Allows deployment to GitHub Pages
       id-token: write  # Allows deployment to use ID token
-
+      
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+        
+    runs-on: ubuntu-latest
     steps:
       - name: Check out `master` branch
         uses: actions/checkout@v4
@@ -54,7 +56,7 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
-          name: docusaurus-build  # Use the name given in the upload step
+          name: docusaurus-build  # Make sure this matches the upload name
 
       - name: List Files After Download
         run: |
