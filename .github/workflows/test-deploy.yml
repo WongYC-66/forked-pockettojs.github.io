@@ -1,26 +1,47 @@
-name: Test deployment
+name: Test Pull Request
 
 on:
   pull_request:
     branches:
       - source
-    # Review gh actions docs if you want to further define triggers, paths, etc
-    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
 
 jobs:
-  test-deploy:
-    name: Test deployment
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: yarn
+          node-version: '16'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Test build website
-        run: yarn build
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build website
+        run: npm run build
+
+      - name: Verify deployment setup
+        run: |
+          # Here we could run checks to verify deployment readiness without actually deploying.
+          # For example, checking the build output exists.
+          if [ ! -d "build" ]; then
+            echo "Build directory not found. Deployment verification failed." >&2
+            exit 1
+          fi
+
+      - name: Verify CNAME file for custom domain
+        run: |
+          echo "Verifying CNAME file..."
+          if [ -f "CNAME" ]; then
+            echo "CNAME file exists. Content:"
+            cat CNAME
+          else
+            echo "CNAME file does not exist."
+          fi
