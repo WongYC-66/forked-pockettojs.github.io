@@ -61,6 +61,20 @@ jobs:
         with:
           name: docusaurus-build  # Use the name given in the upload step
 
+      - name: List Files After Download
+        run: |
+          echo "Listing files in the current directory:"
+          ls -R  # List all files to see what’s present
+
+      - name: Verify Build Artifact
+        run: |
+          if [ ! -d "build" ]; then
+            echo "Build directory does not exist after download. Exiting."
+            exit 1
+          else
+            echo "Build directory exists after downloading."
+          fi
+
       - name: Copy Build Files to Root
         run: |
           rm -rf ./*  # Clear the current contents of the master branch
