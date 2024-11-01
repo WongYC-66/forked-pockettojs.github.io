@@ -1,3 +1,6 @@
+# Run docusaurus deploy at "source" branch, to generate contents of build folder
+# then push them to "master" branch
+# cannot deploy directly from "source" branch, something artifcats missing
 name: Deploy to GitHub Pages
 
 on:
@@ -62,7 +65,3 @@ jobs:
           git add .  # Add all files in the current directory
           git commit -m "Deploy Docusaurus site" || echo "No changes to commit"  # Prevents error if there are no changes
           git push origin master --force
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4

@@ -1,3 +1,4 @@
+# Upon push, deploy contents of master branch to GH Pages
 name: Deploy to GitHub Pages
 
 on:
@@ -18,11 +19,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetch all history for all branches
-
-      - name: List Files in Master Branch
-        run: |
-          echo "Listing files in the current directory:"
-          ls -R  # List all files to see what’s present
 
       - name: Deploy to GitHub Pages
         id: deployment
