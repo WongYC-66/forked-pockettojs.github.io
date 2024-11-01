@@ -1,47 +1,37 @@
-name: Test Pull Request
+name: Build Docusaurus on Pull Request
 
 on:
   pull_request:
     branches:
-      - source
+      - source  # Trigger on pull requests to the source branch
 
 jobs:
-  test:
+  build:
+    name: Build Docusaurus
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for all branches
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: 18
+          cache: yarn
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
+        run: yarn install --frozen-lockfile
 
       - name: Build website
-        run: npm run build
+        run: yarn build
 
-      - name: Verify deployment setup
+      - name: Verify Build Output
         run: |
-          # Here we could run checks to verify deployment readiness without actually deploying.
-          # For example, checking the build output exists.
           if [ ! -d "build" ]; then
-            echo "Build directory not found. Deployment verification failed." >&2
+            echo "Build directory does not exist. Exiting."
             exit 1
-          fi
-
-      - name: Verify CNAME file for custom domain
-        run: |
-          echo "Verifying CNAME file..."
-          if [ -f "CNAME" ]; then
-            echo "CNAME file exists. Content:"
-            cat CNAME
           else
-            echo "CNAME file does not exist."
+            echo "Build directory exists."
           fi
