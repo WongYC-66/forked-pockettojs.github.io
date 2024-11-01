@@ -49,6 +49,7 @@ jobs:
     permissions:
       contents: write  # Allows pushing to the `master` branch
       pages: write     # Allows deployment to GitHub Pages
+      id-token: write  # Allows deployment to use ID token
 
     steps:
       - name: Check out `master` branch
