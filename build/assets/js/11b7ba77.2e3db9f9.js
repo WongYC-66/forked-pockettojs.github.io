@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkpocketto_docs=self.webpackChunkpocketto_docs||[]).push([[6065],{2612:o=>{o.exports=JSON.parse('{"metadata":{"permalink":"/forked-pockettojs.github.io/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
