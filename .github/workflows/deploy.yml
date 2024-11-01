@@ -27,11 +27,6 @@ jobs:
       - name: Build website
         run: yarn build
 
-      - name: List Files After Build
-        run: |
-          echo "Listing files after build:"
-          ls -R
-
       - name: Verify Build Output
         run: |
           if [ ! -d "build" ]; then
@@ -64,20 +59,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: docusaurus-build  # Use the name given in the upload step
-
-      - name: List Files After Download
-        run: |
-          echo "Listing files after downloading the artifact:"
-          ls -R
-
-      - name: Verify Artifact Download
-        run: |
-          if [ ! -d "build" ]; then
-            echo "Build directory does not exist after downloading. Exiting."
-            exit 1
-          else
-            echo "Build directory exists after downloading."
-          fi
 
       - name: Copy Build Files to Root
         run: |
