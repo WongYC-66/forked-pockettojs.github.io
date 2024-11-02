@@ -3,7 +3,6 @@ sidebar_label: 'Introduction'
 title: 'Introduction'
 sidebar_position: 1
 ---
-test-ingggggggggggg 1123
 Pocketto is a ORM (Object Relational Mapping) library that can let you manage your data across different platforms with ease. You can remain offline and sync when there is internet connection.
 
 ### Highlights
