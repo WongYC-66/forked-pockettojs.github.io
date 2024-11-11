@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkpocketto_docs=self.webpackChunkpocketto_docs||[]).push([[1903],{1912:o=>{o.exports=JSON.parse('{"blogBasePath":"/forked-pockettojs.github.io/blog","blogTitle":"Blog","authorsListPath":"/forked-pockettojs.github.io/blog/authors"}')}}]);
